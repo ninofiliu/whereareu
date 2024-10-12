@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Puzzle = styled.div`
   display: grid;
@@ -68,12 +69,12 @@ const story: Record<number, string> = {
   136: "That Fucking Matthew Lillard In Hackers (1995)",
   137: "U Used To Daydream He Was Ur Friend",
   138: "Cuz U Didn't Have Friends For Real IRL",
-  139: "Didn't Know U Were Still Delusional xD",
-  140: "That's So Pathetic",
+  139: "U Even Told People Online U Knew Him",
+  140: "That Was So Pathetic",
+  141: "No Wonder You Miss These Happy Delusions",
   142: "BUT COME ON KEEP PLAYING WITH YOURSELF",
-  143: "AND TELL THE GHOSTS I SAID HI",
-  144: "HAHAHAHHAHAHAHAHHAHA",
-  145: "!!!!!!!!!!!!!!!!!!!!",
+  143: "AND TELL THE GHOSTS U MEET ALONG I SAID HI",
+  144: "HAHAHAHHAHAHAHAHHAHAHAHAHAHAHAHAHAHAHAHAHA",
 };
 
 export const Level7 = () => {
@@ -83,7 +84,8 @@ export const Level7 = () => {
     ["ethel01.png", "ethel22.png", "ethel00.png"],
   ]);
   const [s, setS] = useState(null as null | { x: number; y: number });
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(140);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -93,6 +95,10 @@ export const Level7 = () => {
             <button
               key={3 * y + x}
               onClick={() => {
+                if (step === 144) {
+                  navigate("/level8");
+                  return;
+                }
                 setStep(step + 1);
                 if (map[y][x] === null) {
                   if (s === null) return;
