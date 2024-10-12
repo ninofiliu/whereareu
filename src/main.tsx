@@ -8,6 +8,7 @@ import { Level2 } from "./levels/2/Level2";
 import { Level3 } from "./levels/3/Level3";
 import { Level4 } from "./levels/4/Level4";
 import { Level5 } from "./levels/5/Level5";
+import { Level6 } from "./levels/6/Level6";
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
@@ -18,6 +19,7 @@ createRoot(document.getElementById("root")!).render(
       <Route path="/level3" element={<Level3 />} />
       <Route path="/level4" element={<Level4 />} />
       <Route path="/level5" element={<Level5 />} />
+      <Route path="/level6" element={<Level6 />} />
     </Routes>
   </BrowserRouter>
 );
