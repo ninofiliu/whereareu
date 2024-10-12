@@ -21,7 +21,7 @@ export const Clueware = ({
 }) => (
   <Comp>
     <div title={clue1}>(˃ᆺ˂)</div>
-    <div title={clue2}>σ( •̀ ω •́ σ)</div>
+    <div title={clue2}>σ(•̀ ω•́ σ)</div>
     <div title={clue3}> ☆(&gt;ᴗ•)</div>
   </Comp>
 );
