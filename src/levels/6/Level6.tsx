@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { randInt, randPick, sleep } from "../../lib";
 import fakeAd1 from "./fake_ad1.png";
@@ -11,7 +11,17 @@ import fakeAd5 from "./fake_ad5.png";
 import fakeForm from "./fake_form.png";
 import hotMoms from "./hot_moms.png";
 
-const srcs = [fakeForm, fakeAd1, fakeAd2, fakeAd3, fakeAd4, fakeAd5, hotMoms];
+const srcs = [
+  fakeForm,
+  fakeForm,
+  fakeForm,
+  fakeAd1,
+  fakeAd2,
+  fakeAd3,
+  fakeAd4,
+  fakeAd5,
+  hotMoms,
+];
 const beforeSrcs = Array(randInt(5, 15))
   .fill(null)
   .map(() => randPick(srcs));
@@ -35,16 +45,29 @@ const Ads = styled.div`
   gap: 1em;
 `;
 
-export const Level6 = () => {
-  const navigate = useNavigate();
+const Results = styled.div`
+  border: 1px solid white;
+  padding: 1em;
+`;
 
+const ImgResults = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+  img {
+    width: 100%;
+  }
+`;
+
+export const Level6 = () => {
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [status, setStatus] = useState<
     "init" | "loading" | "unknown" | "found"
-  >("init");
+  >("found");
 
   const onSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -117,6 +140,28 @@ export const Level6 = () => {
           />
           <button disabled={status === "loading"}>Search</button>
         </form>
+        {status === "loading" && <div>Loading...</div>}
+        {status === "unknown" && <div>No match found</div>}
+        {status === "found" && (
+          <Results>
+            <h2>Text results</h2>
+            <p>No match</p>
+            <hr />
+            <h2>Image results</h2>
+            <ImgResults>
+              <img src="/ethel21.png" />
+              <img src="/ethel01.png" />
+              <img src="/ethel00.png" />
+              <img src="/ethel22.png" />
+              <img src="/ethel11.png" />
+              <img src="/ethel12.png" />
+              <img src="/ethel20.png" />
+              <img src="/ethel10.png" />
+            </ImgResults>
+            <Link to="/level7">Process images...</Link>
+          </Results>
+        )}
+
         {afterSrcs.map((src, i) => (
           <img src={src} key={i} />
         ))}
