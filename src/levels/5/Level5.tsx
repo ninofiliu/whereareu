@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { sleep } from "../../lib";
-import imgSrc from "./you_are_an_idiot.webp";
 
 const Page = styled.div`
   width: 90vw;
@@ -58,7 +57,7 @@ export const Level5 = () => {
       <p>
         <button onClick={onClick}>Start</button>
       </p>
-      {idiot && <img src={imgSrc} />}
+      {idiot && <img src="/idiot.webp" />}
     </Page>
   );
 };

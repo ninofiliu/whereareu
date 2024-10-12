@@ -1,10 +1,28 @@
 :root {
-  font-family: monospace;
+  font-family: "VT323", monospace;
   color-scheme: dark;
 }
 body {
   margin: 0;
+  background-color: black;
+  font-size: 20px;
 }
 * {
   box-sizing: border-box;
+}
+input {
+  font: inherit;
+  border: 1px solid white;
+  padding: 0.25em 0.5em;
+  background-color: #222;
+}
+button {
+  font: inherit;
+  border: 1px solid white;
+  padding: 0.25em 0.5em;
+  background-color: #222;
+}
+button:hover {
+  cursor: pointer;
+  background-color: #666;
 }

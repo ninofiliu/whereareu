@@ -41,7 +41,7 @@ export const Level4 = () => {
       alert(
         "cuz in a way, that was my generation's burning of the library of Alexandria u kno...."
       );
-      await sleep(10_000);
+      await sleep(60_000);
       setStatus("finished");
     })();
   }, []);

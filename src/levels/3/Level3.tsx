@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Clueware } from "../../components/Clueware";
+import { randPick, randRange } from "../../lib";
 import { Website } from "./Website";
 
 const bulletSpeed = 5;
@@ -45,11 +46,6 @@ const popupTexts = [
   "How likely are you to recommend us to a friend?",
   "Allow this site to access your location?",
 ];
-
-const randRange = (from: number, to: number) =>
-  from + (to - from) * Math.random();
-const randInt = (from: number, to: number) => Math.floor(randRange(from, to));
-const randPick = <T,>(arr: T[]) => arr[randInt(0, arr.length)];
 
 type Point = { x: number; y: number; txt: string };
 
