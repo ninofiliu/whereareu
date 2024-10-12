@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Clueware } from "../../components/Clueware";
 
 const Page = styled.div`
   position: fixed;
@@ -15,16 +16,6 @@ const Content = styled.div`
   gap: 1em;
   width: 90vw;
   max-width: 600px;
-`;
-
-const Clueware = styled.div`
-  position: fixed;
-  top: 1em;
-  right: 1em;
-  text-align: right;
-  div:hover {
-    opacity: 0.5;
-  }
 `;
 
 export const Level2 = () => {
@@ -44,13 +35,11 @@ export const Level2 = () => {
           </div>
         </Content>
       </Page>
-      <Clueware>
-        <div title="Congrats you found the clueware!">(˃ᆺ˂)</div>
-        <div title="If you're stuck on a puzzle, hover over us to get clues">
-          σ( •̀ ω •́ σ)
-        </div>
-        <div title="Find the next level by modifying the URL"> ☆(&gt;ᴗ•)</div>
-      </Clueware>
+      <Clueware
+        clue1="Congrats you found the clueware!"
+        clue2="If you're stuck on a puzzle, hover over us to get clues"
+        clue3="Find the next level by modifying the URL"
+      />
     </>
   );
 };
