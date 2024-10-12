@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Clueware } from "../../components/Clueware";
+import { Website } from "./Website";
 
 const bulletSpeed = 5;
 const popupSpeed = 1;
@@ -55,6 +56,9 @@ type Point = { x: number; y: number; txt: string };
 const Page = styled.div`
   position: fixed;
   inset: 0;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 `;
 
 export const Level3 = () => {
@@ -63,7 +67,7 @@ export const Level3 = () => {
     popups: popupTexts.map((txt, i) => ({
       txt,
       x: randRange(popupWidth / 2, innerWidth - popupWidth / 2),
-      y: -randRange((i - 1) * popupSpacing, (i + 1) * popupSpacing),
+      y: innerHeight / 2 - randRange(i * popupSpacing, (i + 2) * popupSpacing),
       lives: popupLives,
     })),
   });
@@ -157,6 +161,7 @@ export const Level3 = () => {
     <>
       <Page
         onClick={(evt) => {
+          if (!ref.current.popups.length) return;
           ref.current.bullets.push({
             x: evt.clientX,
             y: evt.clientY,
@@ -198,8 +203,16 @@ export const Level3 = () => {
           </div>
         ))}
 
-        <h1>People Finder Web Site</h1>
-        {state.popups.length ? <>...</> : <>okay</>}
+        <div>
+          <h1>People Finder Web Site</h1>
+          {state.popups.length ? (
+            <>Please wait...</>
+          ) : (
+            <>
+              <Website />
+            </>
+          )}
+        </div>
       </Page>
       <Clueware clue1="It's just a Space Invaders clone come on"></Clueware>
     </>
