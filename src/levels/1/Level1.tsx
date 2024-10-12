@@ -23,13 +23,13 @@ const Textarea = styled.textarea`
   resize: none;
 `;
 
-export const Page0 = () => {
+export const Level0 = () => {
   const [sending, setSending] = useState(false);
   const [tries, setTries] = useState(0);
 
   const send = async () => {
     setSending(true);
-    await new Promise((r) => setTimeout(r, 3_000));
+    await new Promise((r) => setTimeout(r, 1_000));
     setSending(false);
     setTries(tries + 1);
   };
@@ -55,7 +55,7 @@ export const Page0 = () => {
         </div>
         {sending && <div>sending...</div>}
         {!sending && tries ? <div>User not found!</div> : null}
-        {tries > 1 ? <Link to="/other">that's weird...</Link> : null}
+        {tries > 1 ? <Link to="/level2">that's weird...</Link> : null}
       </Content>
     </Page>
   );
