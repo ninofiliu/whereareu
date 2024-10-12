@@ -1,17 +1,9 @@
-import { useRef } from "react";
+import { useEffect } from "react";
 
 import { Clueware } from "../../components/Clueware";
 
-const useOnce = (cb: () => unknown) => {
-  const done = useRef(false);
-  console.log(done.current);
-  if (done.current) return;
-  done.current = true;
-  cb();
-};
-
 export const Level2 = () => {
-  useOnce(() => {
+  useEffect(() => {
     alert(
       "damn, so Ethel deleted their account or smth? they had one for decades over there..."
     );
@@ -20,7 +12,7 @@ export const Level2 = () => {
       "let's see, all i have is their cringe @ they used everywhere, where do i go from there?"
     );
     alert("maybe the clueware i torrented once will finally come in handy...");
-  });
+  }, []);
 
   return (
     <>

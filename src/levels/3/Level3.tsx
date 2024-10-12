@@ -1,3 +1,207 @@
+import styled from "@emotion/styled";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { Clueware } from "../../components/Clueware";
+
+const bulletSpeed = 5;
+const popupSpeed = 1;
+const popupWidth = 400;
+const popupSpacing = 100;
+const popupLives = 5;
+const bulletTexts = [
+  "no",
+  "refuse",
+  "go to hell",
+  "disable",
+  "fuck u",
+  "leave me alone",
+  "ewww",
+  "heck no",
+  ">:(",
+  "ヽ(`⌒´メ)ノ",
+  "i do not consent",
+];
+const popupTexts = [
+  "Accept optional cookies?",
+  "We notice you are using an adblocker. Please disable it to support our site.",
+  "Accept tracking cookies?",
+  "Allow push notifications?",
+  "Join our mailing list!",
+  "Get 10% off your first order!",
+  "Accept ad cookies?",
+  "Allow autoplay?",
+  "Allow this site to access your camera?",
+  "This website wants to access your location.",
+  "Create an account to continue reading.",
+  "Help us improve! Take a quick 2-minute survey.",
+  "Allow this site to access your microphone",
+  "Get a better experience with our mobile app!",
+  "Like us on Facebook for daily updates!",
+  "15-days free trial special offer click here!",
+  "Need help? Chat with our support team now!",
+  "Flah sale! 50% off ends in 10 minutes!",
+  "How likely are you to recommend us to a friend?",
+  "Allow this site to access your location?",
+];
+
+const randRange = (from: number, to: number) =>
+  from + (to - from) * Math.random();
+const randInt = (from: number, to: number) => Math.floor(randRange(from, to));
+const randPick = <T,>(arr: T[]) => arr[randInt(0, arr.length)];
+
+type Point = { x: number; y: number; txt: string };
+
+const Page = styled.div`
+  position: fixed;
+  inset: 0;
+`;
+
 export const Level3 = () => {
-  return <></>;
+  const ref = useRef({
+    bullets: [] as Point[],
+    popups: popupTexts.map((txt, i) => ({
+      txt,
+      x: randRange(popupWidth / 2, innerWidth - popupWidth / 2),
+      y: -randRange((i - 1) * popupSpacing, (i + 1) * popupSpacing),
+      lives: popupLives,
+    })),
+  });
+  const [state, setState] = useState(ref.current);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    let ended = false;
+    const loop = () => {
+      if (ended) return;
+      const bulletElts = document.getElementsByClassName("lvl3-bullet");
+      const popupElts = document.getElementsByClassName("lvl3-popup");
+
+      // update position
+      for (const b of ref.current.bullets) {
+        b.y -= bulletSpeed;
+      }
+      for (const p of ref.current.popups) {
+        p.y += popupSpeed;
+      }
+
+      // dead bullets
+      {
+        const bisToDelete = [] as number[];
+        ref.current.bullets.forEach((b, bi) => {
+          if (b.y < -10) {
+            bisToDelete.push(bi);
+          }
+        });
+        ref.current.bullets = ref.current.bullets.filter(
+          (_, bi) => !bisToDelete.includes(bi)
+        );
+      }
+
+      // collisions
+      {
+        const bisToDelete = [] as number[];
+        const pisToDelete = [] as number[];
+        ref.current.bullets.forEach((_, bi) => {
+          const bulletElt = bulletElts[bi];
+          if (!bulletElt) return;
+          const bRect = bulletElt.getBoundingClientRect();
+          ref.current.popups.forEach((p, pi) => {
+            const popupElt = popupElts[pi];
+            if (!popupElt) return;
+            const pRect = popupElt.getBoundingClientRect();
+            if (
+              bRect.right < pRect.left ||
+              bRect.left > pRect.right ||
+              bRect.bottom < pRect.top ||
+              bRect.top > pRect.bottom
+            )
+              return;
+            bisToDelete.push(bi);
+            p.lives--;
+            if (p.lives === 0) pisToDelete.push(pi);
+          });
+        });
+        ref.current.bullets = ref.current.bullets.filter(
+          (_, bi) => !bisToDelete.includes(bi)
+        );
+        ref.current.popups = ref.current.popups.filter(
+          (_, pi) => !pisToDelete.includes(pi)
+        );
+      }
+
+      // game over
+      {
+        if (
+          [...popupElts].some((p) => {
+            const rect = p.getBoundingClientRect();
+            return rect.bottom > innerHeight;
+          })
+        ) {
+          alert("shit, I got analyticked again");
+          navigate(0);
+        }
+      }
+
+      setState(structuredClone(ref.current));
+      requestAnimationFrame(loop);
+    };
+    loop();
+
+    return () => {
+      ended = true;
+    };
+  }, [navigate]);
+
+  return (
+    <>
+      <Page
+        onClick={(evt) => {
+          ref.current.bullets.push({
+            x: evt.clientX,
+            y: evt.clientY,
+            txt: randPick(bulletTexts),
+          });
+        }}
+      >
+        {state.bullets.map((b, i) => (
+          <div
+            key={i}
+            style={{
+              position: "fixed",
+              left: `${b.x}px`,
+              top: `${b.y}px`,
+              transform: "translate(-50%, -50%)",
+            }}
+            className="lvl3-bullet"
+          >
+            {b.txt}
+          </div>
+        ))}
+        {state.popups.map((p, i) => (
+          <div
+            key={i}
+            style={{
+              width: `${popupWidth}px`,
+              padding: "1em",
+              border: "1px solid white",
+              background: "black",
+              position: "fixed",
+              left: `${p.x}px`,
+              top: `${p.y}px`,
+              textAlign: "center",
+              transform: "translate(-50%, -50%)",
+            }}
+            className="lvl3-popup"
+          >
+            {p.txt}
+          </div>
+        ))}
+
+        <h1>People Finder Web Site</h1>
+        {state.popups.length ? <>...</> : <>okay</>}
+      </Page>
+      <Clueware clue1="It's just a Space Invaders clone come on"></Clueware>
+    </>
+  );
 };
