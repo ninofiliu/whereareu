@@ -3,6 +3,7 @@ import "./index.css";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
+import { Credits } from "./Credits";
 import { Level0 } from "./levels/1/Level1";
 import { Level2 } from "./levels/2/Level2";
 import { Level3 } from "./levels/3/Level3";
@@ -24,6 +25,7 @@ createRoot(document.getElementById("root")!).render(
       <Route path="/level6" element={<Level6 />} />
       <Route path="/level7" element={<Level7 />} />
       <Route path="/level8" element={<Level8 />} />
+      <Route path="/credits" element={<Credits />} />
     </Routes>
   </BrowserRouter>
 );

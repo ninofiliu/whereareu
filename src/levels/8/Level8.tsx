@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
+import { Clueware } from "../../components/Clueware";
 import { lerp, randColor, randPick, randRange } from "../../lib";
 
 const pNb = 100;
 const pNoise = 10;
 const pAttraction = 0.1;
-const pChance = 0.01;
+const pChance = 0.1;
 
 type Msg = { tabId: string; center: { x: number; y: number } };
 
@@ -29,8 +31,11 @@ const newParticlesAtCenter = (
     }));
 
 export const Level8 = () => {
+  const [won, setWon] = useState(false);
+  const [wonText, setWonText] = useState("You won!");
+
   const centersRef = useRef({ [tabId]: getCenter() });
-  const [centers, setCenters] = useState(centersRef.current);
+  const [_centers, setCenters] = useState(centersRef.current);
   const particlesRef = useRef(newParticlesAtCenter(getCenter(), tabId));
   const [particles, setParticles] = useState(particlesRef.current);
 
@@ -43,6 +48,10 @@ export const Level8 = () => {
     const timeouts: Record<string, number> = {};
 
     listen((evt) => {
+      setTimeout(() => {
+        setWon(true);
+      }, 5_000);
+
       clearTimeout(timeouts[evt.data.tabId]);
       timeouts[evt.data.tabId] = setTimeout(() => {
         delete centersRef.current[evt.data.tabId];
@@ -50,7 +59,7 @@ export const Level8 = () => {
         particlesRef.current = particlesRef.current.filter(
           (p) => p.tabId !== evt.data.tabId
         );
-        setParticles(structuredClone(particles));
+        setParticles(structuredClone(particlesRef.current));
       }, 1_000);
 
       centersRef.current[evt.data.tabId] = evt.data.center;
@@ -106,6 +115,20 @@ export const Level8 = () => {
           }}
         />
       ))}
+      {won && (
+        <Link
+          to="/credits"
+          onMouseOver={() => {
+            setWonText("You won! Or did you?...");
+          }}
+          onMouseLeave={() => {
+            setWonText("You won!");
+          }}
+        >
+          {wonText}
+        </Link>
+      )}
+      <Clueware clue1="Try opening the same URL in another browser tab and seeing them side by side" />
     </>
   );
 };
