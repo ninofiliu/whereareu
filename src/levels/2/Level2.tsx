@@ -19,7 +19,7 @@ export const Level2 = () => {
       <Clueware
         clue1="Congrats you found the clueware!"
         clue2="If you're stuck on a puzzle, hover over us to get clues"
-        clue3="Find the next level by modifying the URL"
+        clue3="If you still can't resolve the puzzle, skip to the next one by modifying the URL"
       />
     </>
   );
