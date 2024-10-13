@@ -5,19 +5,22 @@
 body {
   margin: 0;
   background-color: black;
-  font-size: 20px;
+  font-size: 24px;
 }
 * {
   box-sizing: border-box;
 }
-input {
+input,
+textarea,
+button {
   font: inherit;
+}
+input {
   border: 1px solid white;
   padding: 0.25em 0.5em;
   background-color: #222;
 }
 button {
-  font: inherit;
   border: 1px solid white;
   padding: 0.25em 0.5em;
   background-color: #222;
