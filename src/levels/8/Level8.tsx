@@ -1,22 +1,38 @@
 import { useEffect, useRef, useState } from "react";
 
-import { randInt } from "../../lib";
+import { lerp, randColor, randPick, randRange } from "../../lib";
 
-type Msg = { tabId: number } & (
-  | { kind: "move"; center: { x: number; y: number } }
-  | { kind: "quit" }
-);
+const pNb = 100;
+const pNoise = 10;
+const pAttraction = 0.1;
+const pChance = 0.01;
+
+type Msg = { tabId: string; center: { x: number; y: number } };
 
 const getCenter = () => ({
   x: screenX + innerWidth / 2,
   y: screenY + innerHeight / 2,
 });
 
-const tabId = randInt(0, 1_000_000);
+const tabId = randColor();
+
+const newParticlesAtCenter = (
+  center: { x: number; y: number },
+  tabId: string
+) =>
+  Array(pNb)
+    .fill(null)
+    .map(() => ({
+      x: center.x,
+      y: center.y,
+      tabId,
+    }));
 
 export const Level8 = () => {
   const centersRef = useRef({ [tabId]: getCenter() });
   const [centers, setCenters] = useState(centersRef.current);
+  const particlesRef = useRef(newParticlesAtCenter(getCenter(), tabId));
+  const [particles, setParticles] = useState(particlesRef.current);
 
   useEffect(() => {
     const channel = new BroadcastChannel("lvl8");
@@ -24,32 +40,46 @@ export const Level8 = () => {
     const listen = (cb: (evt: MessageEvent<Msg>) => unknown) =>
       channel.addEventListener("message", cb);
 
-    const timeouts: Record<number, number> = {};
+    const timeouts: Record<string, number> = {};
 
     listen((evt) => {
-      switch (evt.data.kind) {
-        case "move": {
-          clearTimeout(timeouts[evt.data.tabId]);
-          timeouts[evt.data.tabId] = setTimeout(() => {
-            delete centersRef.current[evt.data.tabId];
-            setCenters(structuredClone(centersRef.current));
-          }, 1_000);
+      clearTimeout(timeouts[evt.data.tabId]);
+      timeouts[evt.data.tabId] = setTimeout(() => {
+        delete centersRef.current[evt.data.tabId];
+        setCenters(structuredClone(centersRef.current));
+        particlesRef.current = particlesRef.current.filter(
+          (p) => p.tabId !== evt.data.tabId
+        );
+        setParticles(structuredClone(particles));
+      }, 1_000);
 
-          centersRef.current[evt.data.tabId] = evt.data.center;
-          setCenters(structuredClone(centersRef.current));
-          break;
-        }
-      }
+      centersRef.current[evt.data.tabId] = evt.data.center;
+      setCenters(structuredClone(centersRef.current));
     });
 
     let stopLoop = false;
     const loop = () => {
       if (stopLoop) return;
 
+      // update centers
       const center = getCenter();
       centersRef.current[tabId] = center;
       setCenters(structuredClone(centersRef.current));
-      send({ tabId, kind: "move", center });
+      send({ tabId, center });
+
+      // update particles
+      for (const p of particlesRef.current) {
+        p.x += randRange(-pNoise, pNoise);
+        p.y += randRange(-pNoise, pNoise);
+        const center =
+          centersRef.current[p.tabId] ?? Object.values(centersRef.current)[0];
+        p.x = lerp(p.x, center.x, pAttraction);
+        p.y = lerp(p.y, center.y, pAttraction);
+        if (Math.random() < pChance) {
+          p.tabId = randPick(Object.keys(centersRef.current));
+        }
+      }
+      setParticles(particlesRef.current);
 
       requestAnimationFrame(loop);
     };
@@ -60,5 +90,22 @@ export const Level8 = () => {
     };
   }, []);
 
-  return <>{JSON.stringify(centers)}</>;
+  return (
+    <>
+      {particles.map((p, i) => (
+        <div
+          key={i}
+          style={{
+            width: "5px",
+            height: "5px",
+            transform: "translate(-50%, -50%)",
+            position: "fixed",
+            left: `${p.x - screenX}px`,
+            top: `${p.y - screenY}px`,
+            background: p.tabId,
+          }}
+        />
+      ))}
+    </>
+  );
 };
