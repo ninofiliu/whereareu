@@ -53,7 +53,7 @@ export const Level8 = () => {
       }, 5_000);
 
       clearTimeout(timeouts[evt.data.tabId]);
-      timeouts[evt.data.tabId] = setTimeout(() => {
+      timeouts[evt.data.tabId] = window.setTimeout(() => {
         delete centersRef.current[evt.data.tabId];
         setCenters(structuredClone(centersRef.current));
         particlesRef.current = particlesRef.current.filter(
