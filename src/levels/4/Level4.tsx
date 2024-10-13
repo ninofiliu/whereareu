@@ -49,7 +49,10 @@ export const Level4 = () => {
     <>loading...</>
   ) : status === "loaded" ? (
     <Page>
-      <Clueware clue1="A moment of silence is aka a minute of silence" />
+      <Clueware
+        clue1="A moment of silence is aka a MINUTE of silence"
+        clue2="What if you just... waited?"
+      />
       <div>
         <img
           src="/404.jpg"

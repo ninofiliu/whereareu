@@ -37,7 +37,7 @@ export const Website = () => {
               <li>Address: UNKNOWN</li>
               <li>Phone number: UNKNOWN</li>
               <li>
-                MySpace: <Link to="/level4">@ethelreal</Link>
+                MySpace: <Link to="/level4">@ethelreal666</Link>
               </li>
             </ul>
           </>

@@ -165,20 +165,6 @@ export const Level3 = () => {
           });
         }}
       >
-        {state.bullets.map((b, i) => (
-          <div
-            key={i}
-            style={{
-              position: "fixed",
-              left: `${b.x}px`,
-              top: `${b.y}px`,
-              transform: "translate(-50%, -50%)",
-            }}
-            className="lvl3-bullet"
-          >
-            {b.txt}
-          </div>
-        ))}
         {state.popups.map((p, i) => (
           <div
             key={i}
@@ -196,6 +182,20 @@ export const Level3 = () => {
             className="lvl3-popup"
           >
             {p.txt}
+          </div>
+        ))}
+        {state.bullets.map((b, i) => (
+          <div
+            key={i}
+            style={{
+              position: "fixed",
+              left: `${b.x}px`,
+              top: `${b.y}px`,
+              transform: "translate(-50%, -50%)",
+            }}
+            className="lvl3-bullet"
+          >
+            {b.txt}
           </div>
         ))}
 

@@ -68,13 +68,12 @@ const story: Record<number, string> = {
   135: "Cuz That's Sure As Hell Not Ethel",
   136: "That Fucking Matthew Lillard In Hackers (1995)",
   137: "U Used To Daydream He Was Ur Friend",
-  138: "Cuz U Didn't Have Friends For Real IRL",
+  138: "Cuz U Didn't Have Friends IRL",
   139: "U Even Told People Online U Knew Him",
   140: "That Was So Pathetic",
   141: "No Wonder You Miss These Happy Delusions",
   142: "BUT COME ON KEEP PLAYING WITH YOURSELF",
   143: "AND TELL THE GHOSTS U MEET ALONG I SAID HI",
-  144: "HAHAHAHHAHAHAHAHHAHAHAHAHAHAHAHAHAHAHAHAHA",
 };
 
 export const Level7 = () => {
@@ -84,7 +83,7 @@ export const Level7 = () => {
     ["ethel01.png", "ethel22.png", "ethel00.png"],
   ]);
   const [s, setS] = useState(null as null | { x: number; y: number });
-  const [step, setStep] = useState(140);
+  const [step, setStep] = useState(0);
   const navigate = useNavigate();
 
   return (
@@ -95,7 +94,7 @@ export const Level7 = () => {
             <button
               key={3 * y + x}
               onClick={() => {
-                if (step === 144) {
+                if (step === 143) {
                   navigate("/level8");
                   return;
                 }
@@ -111,7 +110,7 @@ export const Level7 = () => {
                 }
               }}
               style={{
-                opacity: s && s.x === x && s.y === y ? 0.2 : 1,
+                opacity: s && s.x === x && s.y === y ? 0.3 : 1,
               }}
             >
               {map[y][x] && (

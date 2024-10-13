@@ -67,7 +67,7 @@ export const Level6 = () => {
   const [username, setUsername] = useState("");
   const [status, setStatus] = useState<
     "init" | "loading" | "unknown" | "found"
-  >("found");
+  >("init");
 
   const onSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -85,7 +85,7 @@ export const Level6 = () => {
 
   return (
     <Page>
-      <h1 style={{ textAlign: "center" }}>findmyfriends.com</h1>
+      <h1 style={{ textAlign: "center" }}>findmyfriends.org</h1>
       <hr />
       <p style={{ textAlign: "center" }}>The oldest OSINT search engine</p>
       <hr />
