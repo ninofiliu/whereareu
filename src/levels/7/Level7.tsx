@@ -80,9 +80,9 @@ const story: Record<number, string> = {
 
 export const Level7 = () => {
   const [map, setMap] = useState([
-    ["ethel20.png", "ethel12.png", "ethel21.png"],
-    ["ethel11.png", null, "ethel10.png"],
-    ["ethel01.png", "ethel22.png", "ethel00.png"],
+    ["ethel20.jpg", "ethel12.jpg", "ethel21.jpg"],
+    ["ethel11.jpg", null, "ethel10.jpg"],
+    ["ethel01.jpg", "ethel22.jpg", "ethel00.jpg"],
   ]);
   const [s, setS] = useState(null as null | { x: number; y: number });
   const [step, setStep] = useState(0);
