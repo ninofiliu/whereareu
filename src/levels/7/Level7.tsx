@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { Clueware } from "../../components/Clueware";
+
 const Puzzle = styled.div`
   display: grid;
   margin: auto;
@@ -65,8 +67,8 @@ const story: Record<number, string> = {
   130: "DONT TELL ME U FORGOT",
   132: "LMAO THAT S SO FUNNY",
   134: "U DONT REMEMBER THEIR FACE DO YOU",
-  135: "Cuz That's Sure As Hell Not Ethel",
-  136: "That Fucking Matthew Lillard In Hackers (1995)",
+  135: "That's The Ethel You're Looking For???",
+  136: "That's Fucking Matthew Lillard!!!",
   137: "U Used To Daydream He Was Ur Friend",
   138: "Cuz U Didn't Have Friends IRL",
   139: "U Even Told People Online U Knew Him",
@@ -127,6 +129,11 @@ export const Level7 = () => {
           ))
         )}
       </Puzzle>
+      {step === 135 && (
+        <Matthew>
+          <img src="/matthew.jpg" />
+        </Matthew>
+      )}
       {step >= 136 && (
         <Matthew>
           <img src="/hackers.jpg" />
@@ -137,6 +144,11 @@ export const Level7 = () => {
           <div>{story[step]}</div>
         </SatanicMessage>
       )}
+      <Clueware
+        clue1="It's a sliding puzzle:) "
+        clue2="drag and drop doesn't work but clicking does"
+        clue3="The puzzle is not solvable! But the text might reveal something..."
+      />
     </>
   );
 };
