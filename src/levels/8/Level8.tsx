@@ -128,7 +128,10 @@ export const Level8 = () => {
           {wonText}
         </Link>
       )}
-      <Clueware clue1="Try opening the same URL in another browser tab and seeing them side by side" />
+      <Clueware
+        clue1="Try opening the same URL in another browser tab and seeing them side by side"
+        clue2="It should work on Firefox and Chrome on Windows, unfortunately on Ubuntu only Chrome works... sorry!"
+      />
     </>
   );
 };
