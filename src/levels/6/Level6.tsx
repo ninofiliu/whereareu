@@ -104,13 +104,9 @@ export const Level6 = () => {
       </div>
       <Ads>
         {beforeSrcs.map((src, i) => (
-          <img
-            src={src}
-            key={i}
-            onClick={() => {
-              location.href = "/idiot.webp";
-            }}
-          />
+          <Link key={i} to="/ad">
+            <img src={src} />
+          </Link>
         ))}
         <form onSubmit={onSubmit}>
           <input
@@ -166,15 +162,10 @@ export const Level6 = () => {
             </p>
           </Results>
         )}
-
         {afterSrcs.map((src, i) => (
-          <img
-            src={src}
-            key={i}
-            onClick={() => {
-              location.href = "/idiot.webp";
-            }}
-          />
+          <Link key={i} to="/ad">
+            <img src={src} />
+          </Link>
         ))}
       </Ads>
       <Clueware

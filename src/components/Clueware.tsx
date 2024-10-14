@@ -6,6 +6,9 @@ const Comp = styled.div`
   top: 1em;
   right: 1em;
   text-align: right;
+  span {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 `;
 
 const Clue = ({ kaomoji, clue }: { kaomoji: string; clue: string }) => {
