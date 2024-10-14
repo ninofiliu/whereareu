@@ -17,11 +17,7 @@ export const Home = () => (
         <a href="https://distraction.fun/">Distraction Collective</a>)
       </p>
       <p>
-        Coded during the{" "}
-        <a href="https://itch.io/jam/europermajam">
-          European Permacomputing Game Jam
-        </a>{" "}
-        by <a href="https://fabbula.com/">Fabbula</a>
+        <a href="https://ninofiliu.itch.io/whereareu">Itch page</a>
       </p>
       <Link to="/level1">&gt;&gt;&gt; Play &lt;&lt;&lt;</Link>
     </div>
