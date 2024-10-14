@@ -1,9 +1,9 @@
 import "./index.css";
 
 import { useEffect } from "react";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
-import { Credits } from "./Credits";
+import { Home } from "./Home";
 import { Level0 } from "./levels/1/Level1";
 import { Level2 } from "./levels/2/Level2";
 import { Level3 } from "./levels/3/Level3";
@@ -38,7 +38,7 @@ export const App = ({ userId }: { userId: string | undefined }) => {
 
   return (
     <Routes>
-      <Route index element={<Navigate to="/level1" />} />
+      <Route index element={<Home />} />
       <Route path="/level1" element={<Level0 />} />
       <Route path="/level2" element={<Level2 />} />
       <Route path="/level3" element={<Level3 />} />
@@ -47,7 +47,6 @@ export const App = ({ userId }: { userId: string | undefined }) => {
       <Route path="/level6" element={<Level6 />} />
       <Route path="/level7" element={<Level7 />} />
       <Route path="/level8" element={<Level8 />} />
-      <Route path="/credits" element={<Credits />} />
     </Routes>
   );
 };

@@ -117,7 +117,7 @@ export const Level8 = () => {
       ))}
       {won && (
         <Link
-          to="/credits"
+          to="/"
           onMouseOver={() => {
             setWonText("You won! Or did you?...");
           }}

@@ -1,4 +1,6 @@
-export const Credits = () => (
+import { Link } from "react-router-dom";
+
+export const Home = () => (
   <div
     style={{
       position: "fixed",
@@ -21,7 +23,7 @@ export const Credits = () => (
         </a>{" "}
         by <a href="https://fabbula.com/">Fabbula</a>
       </p>
-      <p>☆(&gt;ᴗ•)</p>
+      <Link to="/level1">&gt;&gt;&gt; Play &lt;&lt;&lt;</Link>
     </div>
   </div>
 );
