@@ -17,9 +17,9 @@ export const Level2 = () => {
   return (
     <>
       <Clueware
-        clue1="Congrats you found the clueware!"
-        clue2="If you're stuck on a puzzle, hover over us to get clues"
-        clue3="If you still can't resolve the puzzle, skip to the next one by modifying the URL"
+        clue1="Hover over us to get clues!"
+        clue2="If you're stuck, skip to the next level by updating the URL"
+        clue3="That's it for this level!"
       />
     </>
   );

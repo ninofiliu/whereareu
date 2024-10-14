@@ -10,7 +10,7 @@ const bulletSpeed = 5;
 const popupSpeed = 1;
 const popupWidth = 400;
 const popupSpacing = 100;
-const popupLives = 5;
+const popupLives = 3;
 const bulletTexts = [
   "no",
   "refuse",
@@ -58,6 +58,7 @@ const Page = styled.div`
 `;
 
 export const Level3 = () => {
+  const mouseX = useRef(innerWidth / 2);
   const ref = useRef({
     bullets: [] as Point[],
     popups: popupTexts.map((txt, i) => ({
@@ -156,11 +157,14 @@ export const Level3 = () => {
   return (
     <>
       <Page
-        onClick={(evt) => {
+        onMouseMove={(evt) => {
+          mouseX.current = evt.clientX;
+        }}
+        onClick={() => {
           if (!ref.current.popups.length) return;
           ref.current.bullets.push({
-            x: evt.clientX,
-            y: evt.clientY,
+            x: mouseX.current,
+            y: innerHeight,
             txt: randPick(bulletTexts),
           });
         }}
@@ -169,10 +173,10 @@ export const Level3 = () => {
           <div
             key={i}
             style={{
-              width: `${popupWidth}px`,
+              maxWidth: `${popupWidth}px`,
               padding: "1em",
               border: "1px solid white",
-              background: "black",
+              background: ["#f00", "#800", "#400", "#000"][p.lives],
               position: "fixed",
               left: `${p.x}px`,
               top: `${p.y}px`,
@@ -210,7 +214,11 @@ export const Level3 = () => {
           )}
         </div>
       </Page>
-      <Clueware clue1="It's just a Space Invaders clone come on"></Clueware>
+      <Clueware
+        clue1="It's a Space Invaders clone!"
+        clue2="Try clicking around or pressing space"
+        clue3="The username mentionned in level 1 was 'ethelreal666'"
+      ></Clueware>
     </>
   );
 };
