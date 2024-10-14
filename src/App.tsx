@@ -12,13 +12,14 @@ import { Level5 } from "./levels/5/Level5";
 import { Level6 } from "./levels/6/Level6";
 import { Level7 } from "./levels/7/Level7";
 import { Level8 } from "./levels/8/Level8";
-import { supabase } from "./supa";
+import { shouldTrack, supabase } from "./supa";
 
 export const App = ({ userId }: { userId: string | undefined }) => {
   const location = useLocation();
 
   useEffect(() => {
     if (!userId) return;
+    if (!shouldTrack) return;
     supabase
       .from("page_views")
       .insert({

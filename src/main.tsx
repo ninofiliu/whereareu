@@ -5,10 +5,10 @@ import { BrowserRouter } from "react-router-dom";
 
 import { App } from "./App";
 import { randInt } from "./lib";
-import { supabase } from "./supa";
+import { shouldTrack, supabase } from "./supa";
 
 (async () => {
-  await supabase.auth.signInAnonymously();
+  if (shouldTrack) await supabase.auth.signInAnonymously();
   const userId = localStorage.userId ?? `${randInt(0, 1_000_000)}`;
   localStorage.userId = userId;
 
