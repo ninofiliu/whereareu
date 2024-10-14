@@ -148,14 +148,14 @@ export const Level6 = () => {
             <hr />
             <h2>Image results</h2>
             <ImgResults>
-              <img src="/ethel21.png" />
-              <img src="/ethel01.png" />
-              <img src="/ethel00.png" />
-              <img src="/ethel22.png" />
-              <img src="/ethel11.png" />
-              <img src="/ethel12.png" />
-              <img src="/ethel20.png" />
-              <img src="/ethel10.png" />
+              <img src="/ethel21.jpg" />
+              <img src="/ethel01.jpg" />
+              <img src="/ethel00.jpg" />
+              <img src="/ethel22.jpg" />
+              <img src="/ethel11.jpg" />
+              <img src="/ethel12.jpg" />
+              <img src="/ethel20.jpg" />
+              <img src="/ethel10.jpg" />
             </ImgResults>
             <p>
               <Link to="/level7">Process images...</Link>
