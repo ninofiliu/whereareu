@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
 
+import { Clueware } from "../../components/Clueware";
 import { randInt, randPick, sleep } from "../../lib";
 import fakeAd1 from "./fake_ad1.png";
 import fakeAd2 from "./fake_ad2.png";
@@ -89,7 +90,8 @@ export const Level6 = () => {
       <hr />
       <p style={{ textAlign: "center" }}>The oldest OSINT search engine</p>
       <hr />
-      <p>
+      <div>
+        <p></p>
         <div>/!\/!\/!\</div>
         <div>
           Security Note (
@@ -98,7 +100,8 @@ export const Level6 = () => {
           interface of our advanced search. Please proceed with caution.
         </div>
         <div>/!\/!\/!\</div>
-      </p>
+        <p></p>
+      </div>
       <Ads>
         {beforeSrcs.map((src, i) => (
           <img
@@ -158,14 +161,27 @@ export const Level6 = () => {
               <img src="/ethel20.png" />
               <img src="/ethel10.png" />
             </ImgResults>
-            <Link to="/level7">Process images...</Link>
+            <p>
+              <Link to="/level7">Process images...</Link>
+            </p>
           </Results>
         )}
 
         {afterSrcs.map((src, i) => (
-          <img src={src} key={i} />
+          <img
+            src={src}
+            key={i}
+            onClick={() => {
+              location.href = "/idiot.webp";
+            }}
+          />
         ))}
       </Ads>
+      <Clueware
+        clue1="Remember the tricks people used to distinguish the real from fake download buttons on sketchy websites?"
+        clue2="Real web forms can't be dragged and dropped, and they change display on hover"
+        clue3="Not writing down clues aren't u?^^ Ethel Ron Ealston's username is ethelreal666"
+      />
     </Page>
   );
 };
